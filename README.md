@@ -1,6 +1,6 @@
 # Claude Structured Output — Production Patterns
 
-[日本語](#claude-api-で-json-を安全に返させる5つのパターン-) | [English](#claude-api-structured-output-5-production-patterns-)
+[日本語](#japanese) | [English](#english)
 
 5 battle-tested patterns for getting **reliably parsed JSON** out of the Anthropic Claude API, with full type safety via Pydantic, CI-verified tests, and no mocking surprises at runtime.
 
@@ -9,6 +9,8 @@ Built and maintained by [SterriaR LLC](https://sterriar.com/) from our daily AI 
 ![CI](https://github.com/itoshota9029/sterriar-sample-claude-json-structured-output/actions/workflows/ci.yml/badge.svg)
 
 ---
+
+<a id="japanese"></a>
 
 ## Claude API で JSON を安全に返させる5つのパターン 🇯🇵
 
@@ -104,6 +106,8 @@ SterriaR LLC が自社 AI 動画パイプラインを毎日運用する中で蓄
 本番で使うときに「もう一歩踏み込んだ実装例」を探している方に役立てば。
 
 ---
+
+<a id="english"></a>
 
 ## Claude API Structured Output — 5 Production Patterns 🌏
 
