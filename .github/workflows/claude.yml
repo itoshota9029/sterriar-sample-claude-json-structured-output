@@ -47,7 +47,7 @@ jobs:
             - CodeRabbit が既に指摘済の内容は省略可
             - nit レベルは省略・Major / Critical のみ
             - 問題なければ「✅ Claude Code: レビュー観点で問題なし」とコメント
-          claude_args: --max-turns 5
+          claude_args: --max-turns 15
 
   # 2) @claude メンション応答 (issue / PR コメント)
   mention:
