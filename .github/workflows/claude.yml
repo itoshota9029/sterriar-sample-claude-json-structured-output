@@ -11,7 +11,7 @@ on:
     types: [opened]
 
 jobs:
-  # 1) PR 自動レビュー (CodeRabbit と並行発火・重複は CodeRabbit 指摘済を省略)
+  # 1) PR 自動レビュー (CodeRabbit と並行発火・必ず sticky comment で結果表示)
   auto-review:
     if: |
       github.event_name == 'pull_request' &&
@@ -28,10 +28,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Run Claude Code Auto Review
-        # SHA 固定 (v1 = 2026-05-07T23:49:29Z)・サプライチェーン保護
         uses: anthropics/claude-code-action@939ae9c056ecf8a1a01409ddd1c4eadec5f8c77b # v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # 即時解決: sticky comment で必ず 1 つにまとめて投稿
+          use_sticky_comment: "true"
+          # 即時解決: 進捗 (Reviewing... → Completed) を可視化
+          track_progress: "true"
           prompt: |
             このプルリクエストの diff を読み、以下の観点でレビューコメントを投稿してください。
 
@@ -46,7 +49,9 @@ jobs:
             - 日本語で簡潔に
             - CodeRabbit が既に指摘済の内容は省略可
             - nit レベルは省略・Major / Critical のみ
-            - 問題なければ「✅ Claude Code: レビュー観点で問題なし」とコメント
+            - **必ず最後に総評の summary を 1 件は投稿すること** (use_sticky_comment 経由で sticky 化される)
+            - 個別の inline comment 投稿に失敗した場合も、summary だけは必ず残すこと
+            - 問題なければ「✅ Claude Code: レビュー観点で問題なし (確認した観点: ロジック/セキュリティ/パフォーマンス/保守性)」とコメント
           claude_args: --max-turns 15
 
   # 2) @claude メンション応答 (issue / PR コメント)
@@ -82,3 +87,4 @@ jobs:
         uses: anthropics/claude-code-action@939ae9c056ecf8a1a01409ddd1c4eadec5f8c77b # v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: --max-turns 15
