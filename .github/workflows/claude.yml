@@ -8,7 +8,7 @@ on:
   pull_request_review_comment:
     types: [created]
   issues:
-    types: [opened, assigned]
+    types: [opened]
 
 jobs:
   # 1) PR 自動レビュー (CodeRabbit と並行発火・重複は CodeRabbit 指摘済を省略)
